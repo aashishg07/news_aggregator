@@ -1,43 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>News</title>
+    <style>
+        /* CSS style for horizontal alignment of news items */
+
+        body {
+            background-image: url("news_agg/news/static/images/bg-img.jpg")
+        }
+
+        .header-container {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+        .news-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .news-column {
+            flex: 1;
+            padding: 10px;
+        }
+        .horizontal-list {
+            list-style: none;
+            padding: 0;
+        }
+        .horizontal-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+        }
+        .horizontal-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .headline {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            background-color: red;
+            color: white;
+            
+        }
+        .headline-bbc {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            background-color: red;
+            color: white;
+            
+        }
+        .headline-toi {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            background-color: red;
+            color: white;
+            
+        }
+    </style>
 </head>
 <body>
-    <div class="jumbotron">
-        <center><h1>News Aggregator</h1>
-           <a href="/" class="btn btn-danger">Refresh News</a>
-        </form>
-    </center>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                    <h3 class="text-centre"> News from Times of india</h3>
-                    {% for n in toi_news %}
-                    <h5> -  {{n}} </h5>
-                    <hr>
-                    {% endfor %}
-                    <br>
-            </div>
-            <div class="col-6">
-                    <h3 class="text-centre">News from Hindustan times</h3>
-                    {% for htn in ht_news %}
-                    <h5> - {{htn}} </h5>
-                    <hr>
-                    {% endfor %}
-                    <br>
-            </div>
+    <h1><center>News Extraction of BBC Nepali News and Times of India</center></h1>
+    <div class="news-container">
+        <div class="news-column">
+            <h2 class="headline-bbc"><center>BBC News</center></h2>
+            <ul class="horizontal-list">
+                {% for article in bbc_news %}
+                <li class="horizontal-item">
+                    <h3>{{ article.0 }}</h3>
+                    <!-- <p>{{ article.1 }}</p> Uncomment this line if you want to show the description -->
+                    <div>
+                        {% comment %} {% for img_url in article.2|split_urls %}
+                            <img src="{{ img_url }}" alt="Image">
+                        {% endfor %} {% endcomment %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
- 
- 
-</div>
-    <script
-src="http://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <div class="news-column">
+            <h2 class="headline-toi"><center>Times of India News</center></h2>
+            <ul class="horizontal-list">
+                {% for news in toi_news %}
+                <li class="horizontal-item">
+                    <h3>{{ news }}</h3>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
